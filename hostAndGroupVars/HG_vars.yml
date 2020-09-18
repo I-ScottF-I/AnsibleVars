@@ -1,0 +1,14 @@
+#must be run from the directory with the folders host_vars or group_vars or use the --playbook-dir arguement when running the playbook
+#more info can be found here https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+---
+- name: print host and group vars
+  hosts: host1
+  
+  tasks:
+  - name: print host vars
+    debug:
+      msg: '{{test_var}}' 
+
+  - name: print group vars
+    debug:
+      msg: '{{ntp}}'

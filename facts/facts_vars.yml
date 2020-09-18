@@ -1,0 +1,22 @@
+#for more info see this page https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts
+---
+- name: print gathered facts
+  gather_facts: yes
+  hosts: host1
+  
+  tasks:
+  
+  #if you want to see all the facts gathered then 
+  #- name: print facts
+  #  debug:
+  #    msg: '{{ansible_facts}}'
+
+  #if you want to write facts to file 
+  #- name: write facts to file
+  #  copy:
+  #    content: '{{ansible_facts}}'
+  #    dest: '/var/tmp/facts.txt'
+  
+  - name: print host SELinux config
+    debug:
+      msg: '{{ansible_facts.selinux}}' 

@@ -1,0 +1,27 @@
+#Playbook which will print vars from multiple sources
+---
+- name: PrintVars
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+
+  # read csv then print vars from csv 
+  - name: import vars from csv
+    read_csv:
+      path: bonds.csv
+    register: bonds_csv
+
+  # loop through csv vars in dictionary form
+
+  - name: print csv values raw
+    debug:
+      msg: '{{item}}'
+    loop: '{{bonds_csv.list}}'
+
+  # print an individual item from the csv for each item
+
+  - name: print csv values structurally
+    debug:
+      msg: '{{item.name}} has played James Bond {{item.appearances}} time(s) with his first appearance in the movie {{item.firstAppearance}}'
+    loop: '{{bonds_csv.list}}'

@@ -1,0 +1,37 @@
+#whe to use include_vars vs var_files https://stackoverflow.com/questions/53253879/ansible-vars-files-vs-include-vars
+---
+- name: print playbook and include vars
+  gather_facts: no
+  hosts: localhost
+  vars: 
+    playbook_var:
+      - playExample
+      - playExample2
+
+  vars_files:
+    - file_vars.yml
+    
+  tasks:
+    
+    - name: print playbook vars
+      debug:
+        msg: '{{item}}'
+      loop: '{{playbook_var}}' 
+
+    - name: print playbook vars
+      debug:
+        msg: '{{item}}'
+      loop: '{{file_var}}' 
+
+#ansible reccommend using roles insitead of include vars but it works
+#more info can be found here https://docs.ansible.com/ansible/latest/modules/include_vars_module.html
+
+    - name: get includes vars
+      include_vars:
+        file: include_vars.yml
+
+
+    - name: print includes vars
+      debug:
+        msg: '{{item}}'
+      loop: '{{include_var}}'
